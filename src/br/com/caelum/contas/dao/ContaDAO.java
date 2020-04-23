@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,25 @@ public class ContaDAO {
 //	@Autowired
 	private Connection connection;
 
+	/**
+	 * 
+
 	public ContaDAO() {
 		try {
 			this.connection = new ConnectionFactory().getConnection();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	*/
+	@Autowired
+	public ContaDAO(DataSource ds) {
+		try {
+			this.connection = ds.getConnection();
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	public void adiciona(Conta conta) {
